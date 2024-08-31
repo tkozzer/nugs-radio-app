@@ -17,7 +17,7 @@ import AudioPlayer from './AudioPlayer.vue';
 import NowPlaying from './NowPlaying.vue';
 import logoImage from '../assets/images/logo.png';
 
-const audioSource = ref('https://radio.nugs.net/livephish?type=http&nocache=84');
+const audioSource = ref('https://radio.nugs.net/livephish');
 const audioPlayerRef = ref(null);
 const logoRef = ref(null);
 

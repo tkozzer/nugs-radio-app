@@ -17,7 +17,6 @@ console.log("prodUrl", prodUrl);
 
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log("Request origin:", origin);
         if (process.env.NODE_ENV !== 'production') {
             // In development, allow all origins
             callback(null, true);
