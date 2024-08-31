@@ -122,9 +122,43 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# .vscode
+.vscode
+**/.vscode
+
 # yarn v2
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Vue.js and Vite.js build output
+frontend/dist
+dist-ssr
+
+# Local env files
+.env*.local
+
+# IDE / Editor directories
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Replit specific
+.replit
+replit.nix
+.config
+
+# Optional: Ignore package-lock.json if you're using yarn
+# package-lock.json
+
+# Optional: Ignore yarn.lock if you're using npm
+# yarn.lock

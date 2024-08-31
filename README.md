@@ -116,6 +116,12 @@ The backend server will serve the built frontend files from the `frontend/dist` 
 ## API Endpoints
 
 - `/api/current-song`: Get current playing song information
+  - Query parameter:
+    - `id` (optional): Specifies the stream ID. 
+      - `1`: nugs.net
+      - `2`: LivePhish (default)
+      - `4`: Pearl Jam
+  - Returns: Current song information in plain text format
 
 ## Features
 
