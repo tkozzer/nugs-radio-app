@@ -10,14 +10,18 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const songInfo = ref('');
 
-// Log the base URL to check if it's been picked up correctly
-console.log('VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+// Determine the base URL based on the environment
+const baseUrl = import.meta.env.MODE === 'production'
+  ? import.meta.env.VITE_API_BASE_URL
+  : import.meta.env.VITE_DEV_API_BASE_URL || 'http://localhost:3000';
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+console.log('Current mode:', import.meta.env.MODE);
+console.log('Using base URL:', baseUrl);
 
 const fetchSongInfo = async () => {
   try {
-    const response = await fetch(`${baseUrl}/api/current-song?id=2`);
+    // Use a relative URL here
+    const response = await fetch(`/api/current-song?id=2`);
     const data = await response.text();
     songInfo.value = data.trim();
   } catch (error) {
