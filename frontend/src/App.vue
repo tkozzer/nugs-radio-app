@@ -49,8 +49,6 @@ body {
 
 .thank-you-message {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
   color: white;
   text-decoration: none;
   font-size: 14px;
@@ -62,11 +60,29 @@ body {
   cursor: pointer;
 }
 
-.thank-you-message:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  font-size: 24px;
-  padding: 10px 20px;
-  bottom: 15px;
-  right: 15px;
+/* Mobile styles */
+@media (max-width: 640px) {
+  .thank-you-message {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    bottom: auto;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 641px) {
+  .thank-you-message {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .thank-you-message:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 24px;
+    padding: 10px 20px;
+    bottom: 15px;
+    right: 15px;
+  }
 }
 </style>

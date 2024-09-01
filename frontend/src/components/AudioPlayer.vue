@@ -1,5 +1,5 @@
 <template>
-  <div class="audio-player" :class="{ 'dark-mode': isDarkMode, 'controls-hidden': hideControls }">
+  <div class="audio-player" :class="{ 'dark-mode': isDarkMode, 'controls-hidden': hideControls, 'mobile': isMobile }">
     <audio
       ref="audioRef"
       crossorigin="anonymous"
@@ -52,7 +52,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, reactive } from 'vue';
+import { ref, onMounted, onUnmounted, watch, reactive, computed } from 'vue';
+import { useWindowSize } from '@vueuse/core';
 import MustClickToStartModal from './AudioPlayer/MustClickToStartModal.vue';
 import SettingsMenu from './AudioPlayer/SettingsMenu.vue';
 import VolumeControl from './AudioPlayer/VolumeControl.vue';
@@ -339,11 +340,19 @@ watch(volume, (newVolume) => {
   }
 });
 
+const { width } = useWindowSize();
+
+const isMobile = computed(() => width.value < 768); // Adjust this breakpoint as needed
+
 </script>
 
 <style scoped>
 .audio-player {
   @apply w-full max-w-md mx-auto bg-white dark:bg-gray-800 p-2 rounded-full shadow-md flex items-center transition-all duration-300;
+}
+
+.audio-player.mobile {
+  @apply fixed bottom-0 left-0 right-0 max-w-full rounded-none;
 }
 
 .audio-player.dark-mode {

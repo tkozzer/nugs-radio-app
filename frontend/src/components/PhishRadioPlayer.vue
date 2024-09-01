@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <img ref="logoRef" alt="Logo" class="logo" :src="logoImage" />
+    <div class="logo-container">
+      <img ref="logoRef" alt="Logo" class="logo" :src="logoImage" />
+    </div>
     <NowPlaying />
     <AudioPlayer 
       ref="audioPlayerRef" 
@@ -64,6 +66,10 @@ const onManualPlay = () => {
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.logo-container {
+  margin-bottom: 50px; /* This adds 50 pixels below the logo */
 }
 
 .logo {

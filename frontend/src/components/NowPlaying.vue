@@ -36,11 +36,11 @@ onUnmounted(() => {
 
 <style scoped>
 .now-playing {
-  @apply text-center mb-4;
+  @apply text-center fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-50 py-2 pt-[50px];
 }
 
 .title {
-  @apply text-lg font-semibold mb-1 text-gray-100 dark:text-gray-300;
+  @apply text-sm font-semibold mb-1 text-gray-100 dark:text-gray-300;
 }
 
 .song-info {
