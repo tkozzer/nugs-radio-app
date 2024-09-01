@@ -24,7 +24,7 @@
         :isMobile="isMobile"
         class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" 
       />
-      <div class="px-4 py-2 text-sm text-gray-500">Debug: {{ isMobile ? 'Mobile' : 'Desktop' }}</div>
+      <div v-if="isDevelopment" class="px-4 py-2 text-sm text-gray-500">Debug: {{ isMobile ? 'Mobile' : 'Desktop' }}</div>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ const isFullScreen = inject('isFullScreen');
 const isFullScreenPossible = inject('isFullScreenPossible');
 const isFullScreenSupported = ref(false);
 const isMobile = ref(false);
+const isDevelopment = import.meta.env.DEV;
 
 onMounted(() => {
   checkFullScreenSupport();
