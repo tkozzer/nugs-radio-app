@@ -18,7 +18,12 @@
       <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" @click="refreshPage">
         Refresh Player
       </button>
-      <FollowTheRabbit :selectedStream="selectedStream" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" />
+      <FollowTheRabbit
+        v-if="isMobile"
+        :selectedStream="selectedStream" 
+        :isMobile="isMobile"
+        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" 
+      />
       <div class="px-4 py-2 text-sm text-gray-500">Debug: {{ isMobile ? 'Mobile' : 'Desktop' }}</div>
     </div>
   </div>
