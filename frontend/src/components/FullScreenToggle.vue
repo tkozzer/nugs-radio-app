@@ -71,6 +71,9 @@ onUnmounted(() => {
   document.removeEventListener('webkitfullscreenchange', updateFullScreenState);
   document.removeEventListener('MSFullscreenChange', updateFullScreenState);
 });
+
+// Expose the toggleFullScreen function, isFullScreen state, and isFullScreenPossible
+defineExpose({ toggleFullScreen, isFullScreen, isFullScreenPossible });
 </script>
 
 <style scoped>
@@ -90,5 +93,11 @@ onUnmounted(() => {
 .full-screen-toggle:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
+}
+
+@media (max-width: 640px) {
+  .full-screen-toggle {
+    display: none;
+  }
 }
 </style>

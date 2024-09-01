@@ -1,17 +1,33 @@
 <script setup>
+import { provide, ref } from 'vue';
 import PhishRadioPlayer from './components/PhishRadioPlayer.vue';
 import StarryBackground from './components/StarryBackground.vue';
 import FullScreenToggle from './components/FullScreenToggle.vue';
+import FollowTheRabbit from './components/FollowTheRabbit.vue';
+
+const fullScreenToggleRef = ref(null);
+
+provide('fullScreenToggle', () => {
+  if (fullScreenToggleRef.value) {
+    fullScreenToggleRef.value.toggleFullScreen();
+  }
+});
+
+provide('isFullScreen', () => {
+  return fullScreenToggleRef.value ? fullScreenToggleRef.value.isFullScreen : false;
+});
+
+provide('isFullScreenPossible', () => {
+  return fullScreenToggleRef.value ? fullScreenToggleRef.value.isFullScreenPossible : false;
+});
 </script>
 
 <template>
   <div class="app-container">
     <StarryBackground />
     <PhishRadioPlayer />
-    <FullScreenToggle />
-    <a href="https://radio.nugs.net/livephish" target="_blank" rel="noopener noreferrer" class="thank-you-message">
-      Follow the 🐇!
-    </a>
+    <FullScreenToggle ref="fullScreenToggleRef" />
+    <FollowTheRabbit />
   </div>
 </template>
 
@@ -45,44 +61,5 @@ body {
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
-}
-
-.thank-you-message {
-  position: fixed;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  z-index: 9999999;
-  cursor: pointer;
-}
-
-/* Mobile styles */
-@media (max-width: 640px) {
-  .thank-you-message {
-    top: 10px;
-    left: 10px;
-    right: auto;
-    bottom: auto;
-  }
-}
-
-/* Desktop styles */
-@media (min-width: 641px) {
-  .thank-you-message {
-    bottom: 10px;
-    right: 10px;
-  }
-
-  .thank-you-message:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    font-size: 24px;
-    padding: 10px 20px;
-    bottom: 15px;
-    right: 15px;
-  }
 }
 </style>

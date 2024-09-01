@@ -1,14 +1,21 @@
 <template>
   <div class="now-playing">
     <h2 class="title">Now Playing:</h2>
-    <p class="song-info">{{ songInfo }}</p>
+    <p class="song-info">{{ formattedSongInfo }}</p>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const songInfo = ref('');
+
+const formattedSongInfo = computed(() => {
+  if (songInfo.value.startsWith('PHISH:')) {
+    return songInfo.value.substring(6).trim();
+  }
+  return songInfo.value;
+});
 
 const fetchSongInfo = async () => {
   try {
@@ -44,6 +51,7 @@ onUnmounted(() => {
 }
 
 .song-info {
-  @apply text-base text-gray-100 dark:text-gray-400;
+  @apply text-xl font-bold text-gray-100 dark:text-gray-400;
+  font-family: 'Helvetica Neue Condensed', 'Arial Narrow', Arial, sans-serif;
 }
 </style>

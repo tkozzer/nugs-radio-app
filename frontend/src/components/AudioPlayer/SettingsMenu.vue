@@ -12,6 +12,9 @@
       <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" @click="toggleHideControls">
         {{ hideControls ? 'Show Controls' : 'Hide Controls' }}
       </button>
+      <button v-if="showFullScreenOption" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" @click="toggleFullScreen">
+        {{ isFullScreen() ? 'Exit Full Screen' : 'Enter Full Screen' }}
+      </button>
       <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" @click="refreshPage">
         Refresh Player
       </button>
@@ -20,9 +23,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, inject, onMounted, computed } from 'vue';
 
-defineProps({
+const props = defineProps({
   isDarkMode: Boolean,
   hideControls: Boolean,
 });
@@ -30,6 +33,39 @@ defineProps({
 const emit = defineEmits(['toggleDarkMode', 'toggleHideControls', 'refreshPage']);
 
 const showMenu = ref(false);
+const fullScreenToggle = inject('fullScreenToggle');
+const isFullScreen = inject('isFullScreen');
+const isFullScreenPossible = inject('isFullScreenPossible');
+const isFullScreenSupported = ref(false);
+const isMobile = ref(false);
+
+onMounted(() => {
+  checkFullScreenSupport();
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+});
+
+const checkFullScreenSupport = () => {
+  const doc = window.document;
+  const docEl = doc.documentElement;
+
+  const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if (requestFullScreen && cancelFullScreen) {
+    isFullScreenSupported.value = true;
+  } else {
+    isFullScreenSupported.value = false;
+  }
+};
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 640;
+};
+
+const showFullScreenOption = computed(() => {
+  return isFullScreenSupported.value && isMobile.value;
+});
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
@@ -41,6 +77,12 @@ const toggleDarkMode = () => {
 
 const toggleHideControls = () => {
   emit('toggleHideControls');
+};
+
+const toggleFullScreen = () => {
+  if (fullScreenToggle && isFullScreenSupported.value) {
+    fullScreenToggle();
+  }
 };
 
 const refreshPage = () => {
