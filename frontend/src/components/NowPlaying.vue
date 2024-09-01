@@ -43,7 +43,7 @@ onUnmounted(() => {
 
 <style scoped>
 .now-playing {
-  @apply text-center fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-50 py-2 pt-[50px];
+  @apply text-center fixed top-0 left-0 right-0 z-10 bg-black bg-opacity-50 py-2 pt-[100px];
 }
 
 .title {

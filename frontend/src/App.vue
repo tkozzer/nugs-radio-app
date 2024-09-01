@@ -1,11 +1,33 @@
 <script setup>
-import { provide, ref } from 'vue';
+import { provide, ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useAppStore } from './stores/appStore';
 import PhishRadioPlayer from './components/PhishRadioPlayer.vue';
 import StarryBackground from './components/StarryBackground.vue';
 import FullScreenToggle from './components/FullScreenToggle.vue';
 import FollowTheRabbit from './components/FollowTheRabbit.vue';
 
 const fullScreenToggleRef = ref(null);
+const route = useRoute();
+const appStore = useAppStore();
+
+const stationId = computed(() => {
+  switch (route.name) {
+    case 'phish':
+      return 2;
+    case 'pearl-jam':
+      return 4;
+    case 'shuffle':
+      return 1;
+    default:
+      return 2; // Default to Phish
+  }
+});
+
+// Watch for changes in stationId and update the store
+watch(stationId, (newId) => {
+  appStore.setCurrentStationId(newId);
+});
 
 provide('fullScreenToggle', () => {
   if (fullScreenToggleRef.value) {
@@ -20,6 +42,8 @@ provide('isFullScreen', () => {
 provide('isFullScreenPossible', () => {
   return fullScreenToggleRef.value ? fullScreenToggleRef.value.isFullScreenPossible : false;
 });
+
+provide('stationId', stationId);
 </script>
 
 <template>

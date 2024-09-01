@@ -1,11 +1,20 @@
 <template>
-  <a href="https://radio.nugs.net/livephish" target="_blank" rel="noopener noreferrer" class="thank-you-message">
+  <a :href="rabbitLink" target="_blank" rel="noopener noreferrer" class="thank-you-message">
     Follow the 🐇!
   </a>
 </template>
 
 <script setup>
-// No script needed for this simple component
+import { computed } from 'vue';
+
+const props = defineProps({
+  selectedStream: {
+    type: String,
+    default: '2'
+  }
+});
+
+const rabbitLink = computed(() => `https://radio.nugs.net/index.html?sid=${props.selectedStream}`);
 </script>
 
 <style scoped>

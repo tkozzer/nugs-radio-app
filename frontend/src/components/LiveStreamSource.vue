@@ -6,14 +6,19 @@
       <option value="4">Pearl Jam Radio</option>
     </select>
     <audio ref="audioPlayer" :src="streamUrl" controls></audio>
+    <FollowTheRabbit :selectedStream="selectedStream" />
   </div>
 </template>
 
 <script>
 import { ref, computed } from 'vue';
+import FollowTheRabbit from './FollowTheRabbit.vue';
 
 export default {
   name: 'LiveStreamSource',
+  components: {
+    FollowTheRabbit
+  },
   setup() {
     const selectedStream = ref('2'); // Default to LivePhish Radio
     const audioPlayer = ref(null);

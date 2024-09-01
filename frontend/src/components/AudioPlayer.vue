@@ -342,7 +342,7 @@ watch(volume, (newVolume) => {
 
 const { width } = useWindowSize();
 
-const isMobile = computed(() => width.value < 768); // Adjust this breakpoint as needed
+const isMobile = computed(() => width.value < 641); // Adjust this breakpoint as needed
 
 </script>
 

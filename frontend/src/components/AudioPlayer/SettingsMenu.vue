@@ -18,16 +18,23 @@
       <button class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" @click="refreshPage">
         Refresh Player
       </button>
+      <FollowTheRabbit :selectedStream="selectedStream" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left" />
+      <div class="px-4 py-2 text-sm text-gray-500">Debug: {{ isMobile ? 'Mobile' : 'Desktop' }}</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, inject, onMounted, computed } from 'vue';
+import { ref, watch, inject, onMounted, onUnmounted, computed } from 'vue';
+import FollowTheRabbit from '../FollowTheRabbit.vue';
 
 const props = defineProps({
   isDarkMode: Boolean,
   hideControls: Boolean,
+  selectedStream: {
+    type: String,
+    default: '2'
+  }
 });
 
 const emit = defineEmits(['toggleDarkMode', 'toggleHideControls', 'refreshPage']);
@@ -43,6 +50,10 @@ onMounted(() => {
   checkFullScreenSupport();
   checkMobile();
   window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
 });
 
 const checkFullScreenSupport = () => {
@@ -61,6 +72,7 @@ const checkFullScreenSupport = () => {
 
 const checkMobile = () => {
   isMobile.value = window.innerWidth <= 640;
+  console.log('Is mobile:', isMobile.value);
 };
 
 const showFullScreenOption = computed(() => {
