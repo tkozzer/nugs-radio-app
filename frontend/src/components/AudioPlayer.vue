@@ -32,6 +32,7 @@
         <VolumeControl
           v-model:volume="volume"
           :isDarkMode="isDarkMode"
+          :isMobile="isMobile"
           @toggleMute="toggleMute"
         />
         <SettingsMenu
